@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Book Store — {% block meta_title %}{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}{% endblock %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="{% static 'images/favicon/favicon.ico' %}" type="image/x-icon" />
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/theme.css' %}">
+    {% block head %}{% endblock %}
+</head>
+<body>
+
+    {% include 'app/includes/navbar.html' %}
+    
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+	
+	{% include 'app/includes/footer.html' %}
+    
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    {% block footer_scripts %}{% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+{% extends 'app/layouts/basic.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block meta_title %}Интернет-магазин книг{% endblock %}
+{% block meta_description %}Лучшие книги в Рунете{% endblock %}
+
+{% block content %}
+<section class="py-5">
+	<div class="container">
+
+		{% if messages %}
+		<div class="alert alert-primary alert-dismissible fade show" role="alert">
+			{% for message in messages %}
+			{{ message|safe }}
+			{% endfor %}
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+		{% endif %}
+
+		<div class="d-flex align-items-center mb-4">
+			<h1 class="fs-2 fw-bold mb-0 me-2">Все книги</h1>
+			<button class="btn btn-sm btn-primary" type="button" data-bs-toggle="offcanvas" 
+			data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Поиск</button>
+		</div>
+			
+		<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+			<div class="offcanvas-header">
+				<h5 class="offcanvas-title" id="offcanvasRightLabel">Offcanvas right</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+			</div>
+			<div class="offcanvas-body">
+				<form method="get">
+					{{ search_form|crispy }}
+					<button type="submit" name="search_form_btn" class="btn btn-primary mt-3">Найти</button>
+				</form>
+			</div>
+		</div>
+
+		<div class="row g-4">
+			{% for book in books %}
+			<div class="col-md-3">
+				<div class="card bg-white">
+					
+					<img src="{% if book.photo_small %}{{ book.photo_small.url }}{% else %}{{ book.photo.url}}{% endif %}" 
+					class="book-photo" alt="">
+
+					<div class="card-body">
+						<h5 class="card-title">{{ book.name }}</h5>
+						<p class="card-text mb-0">{{ book.get_genre_display }}</p>
+
+						<div class="d-flex align-items-center justify-content-between mt-3">
+							<span class="text-dark fw-bolder small">{{ book.price }} р.</span>
+							<span class="text-muted small">{{ book.author }}</span>
+						</div>
+
+						<hr class="text-muted mt-4">
+						<span class="fw-bold {% if book.success %}text-success{% else %}text-danger{% endif %} me-1">{{ book.success }}</span>
+						<a href="{% url 'success_func' book.pk %}">Change</a>
+					</div>
+				</div>
+			</div>
+			{% empty %}
+			<div class="col-12">
+				<span class="fs-5 text-secondary">Список товаров пуст.</span>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</section>
+{% endblock %}

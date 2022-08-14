@@ -1,0 +1,27 @@
+{% extends 'app/layouts/basic.html' %}
+{% load crispy_forms_tags %}
+
+{% block meta_title %}Добавить книгу{% endblock %}
+{% block meta_description %}Добавить новую книгу на сайте{% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-6 col-lg-5">
+
+                <h1 class="fs-4 text-center mb-3">Добавить книгу</h1>
+
+                <form method="post" class="p-4 bg-white border shadow" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    
+                    {{ book_form|crispy }}
+            
+                    <button type="submit" class="btn btn-sm btn-primary">Добавить</button>
+                </form>
+                
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
