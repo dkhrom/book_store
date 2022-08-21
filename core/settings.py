@@ -89,9 +89,9 @@ if DEBUG == False:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'dps010',
-            'USER': 'dps010',
-            'PASSWORD': '3Fd8K#43Gt*d7Uq',
+            'NAME': '',
+            'USER': '',
+            'PASSWORD': '',
             'HOST': 'localhost',
             'PORT': '',
         }
