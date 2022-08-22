@@ -8,16 +8,6 @@
 {% block content %}
 <section class="py-5">
 	<div class="container">
-
-		{% if messages %}
-		<div class="alert alert-primary alert-dismissible fade show" role="alert">
-			{% for message in messages %}
-			{{ message|safe }}
-			{% endfor %}
-			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-		</div>
-		{% endif %}
-
 		<div class="d-flex align-items-center mb-4">
 			<h1 class="fs-2 fw-bold mb-0 me-2">Все книги</h1>
 			<button class="btn btn-sm btn-primary" type="button" data-bs-toggle="offcanvas" 
