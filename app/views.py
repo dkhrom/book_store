@@ -1,11 +1,10 @@
-from django.shortcuts import render, redirect
-from django.contrib import messages
+from django.shortcuts import render
+from django.http import JsonResponse
 from .forms import BookCreateForm, SearchBookForm
 from .tasks import (
     get_book,
     get_books_list, 
-    get_books_search_list, 
-    add_book_func,
+    get_books_search_list,
     book_success_func,
 )
 
@@ -31,9 +30,12 @@ def index(request):
 def add_books(request):
     if request.method == 'POST':
         book_form = BookCreateForm(request.POST, request.FILES)
-        add_book_func(book_form)
-        messages.success(request, "Книга успешно добавлена!")
-        return redirect(index)
+        if book_form.is_valid():
+            try:
+                book_form.save()
+                return JsonResponse({'Response': 'Success'})
+            except:
+                return JsonResponse({'Response': 'Error'})
     else:
         book_form = BookCreateForm()
 
@@ -43,4 +45,10 @@ def add_books(request):
 def success_func(request, pk):
     book = get_book(pk)
     book_success_func(book)
-    return redirect(index)
+
+    if book.success:
+        book_res = True
+    else:
+        book_res = False
+
+    return JsonResponse({'Response': book_res})

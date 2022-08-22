@@ -26,12 +26,6 @@ def get_books_search_list(search_form):
         Q(price__gt=search_form.cleaned_data['price_from'] or 0),
         Q(price__lt=search_form.cleaned_data['price_to'] or 999999),
     )
-    
-
-@shared_task
-def add_book_func(book_form):
-    if book_form.is_valid():
-        book_form.save()
 
 
 @shared_task
