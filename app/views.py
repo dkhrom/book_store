@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from .forms import BookCreateForm, SearchBookForm
-from .tasks import (
+from .services import (
     get_book,
     get_books_list, 
     get_books_search_list,
@@ -52,3 +52,9 @@ def success_func(request, pk):
         book_res = False
 
     return JsonResponse({'Response': book_res})
+
+
+
+async def my_async(request):
+    func = {"message": "Hello!!!"}
+    return JsonResponse(func)
